@@ -14,7 +14,7 @@ public class Stockserver {
   private static void processRequest(Subscriber<? super StockInfo> subscriber,
       List<String> stockLabels) {
     System.out.println("Processing...");
-    while (true) {
+    while (!subscriber.isUnsubscribed()) {
       stockLabels.stream()
           .map(StockFetcher::fetch)
           .forEach(subscriber::onNext);
